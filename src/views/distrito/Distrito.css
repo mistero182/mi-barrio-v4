@@ -1,0 +1,91 @@
+.header {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    height: 60px;
+    max-height: 150px;
+    width: 100%;
+    background-image: linear-gradient(to right, rgba(255,102,0,1) 0%, rgba(255,102,0,0.5) 100%);
+    background-repeat: no-repeat;
+}
+
+.backArrow {
+    width: 20%;
+    height: 33px;
+    width: 22px;
+    margin-left: 15px;
+}
+
+.headerTitle {
+    font-family: 'sen-regular';
+    font-weight: 800;
+    font-size: 25px;
+    width: 80%;
+}
+
+.mainDistrito {
+    background-color: white;
+}
+
+
+
+.litCard {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    max-height: 80px;
+    margin-top: 20px;
+}
+
+.imageContainer {
+    height: 60px;
+    width: 65px;
+    overflow: hidden;
+    border-radius: 5px;
+    margin-left: 15px;
+}
+
+.imageContainer > img {
+    height: 65px;
+    width: auto;
+}
+
+.litCardBody {
+    display: flex;
+    flex-grow: 2;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+.litCardTitle {
+    font-family: 'sen-regular';
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 20px;
+    margin: 0px 0px 0px 10px;
+    text-align: left;
+}
+
+.litCardType {
+    font-family: 'sen-regular';
+    font-weight: 800;
+    font-size: 16px;
+    color: gray;
+    margin: 0px 0px 0px 10px;
+}
+
+.litCardLeft {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: -40px 20px 0px 10px;
+}
+
+.distance{
+    font-family: 'sen-regular';
+    font-weight: 800;
+    font-size: 13px;
+    color: #ff5555;
+}

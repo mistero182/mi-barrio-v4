@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="9.6049566mm"
+   height="14.552129mm"
+   viewBox="0 0 9.6049566 14.552129"
+   version="1.1"
+   id="svg1222"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   sodipodi:docname="backArrow.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1224"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="5.9223906"
+     inkscape:cx="37.991415"
+     inkscape:cy="29.042326"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1219">
+    <rect
+       x="-1680.0857"
+       y="-152.73506"
+       width="99.26889"
+       height="124.49936"
+       id="rect846" />
+  </defs>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-111.71016,-75.998302)">
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458334,0,0,0.26458334,555.41986,103.35036)"
+       id="text844"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:106.667px;line-height:1.25;font-family:Neuton;-inkscape-font-specification:'Neuton Bold';white-space:pre;shape-inside:url(#rect846);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
+         x="-1680.0859"
+         y="-52.700613"
+         id="tspan1264"><tspan
+           style="font-weight:normal;-inkscape-font-specification:Neuton"
+           id="tspan1262">&lt;</tspan></tspan></text>
+  </g>
+</svg>
