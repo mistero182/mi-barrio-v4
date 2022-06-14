@@ -4,10 +4,6 @@ import Cookies from 'universal-cookie';
 import axios from 'axios';
 import qs from 'qs';
 
-
-console.log(process.env.COGNITO_CLIENT_ID)
-
-
 const cookies = new Cookies();
 
 import { Home } from './views/home/Home'
@@ -27,8 +23,6 @@ const globalConfig = {
     SDthreshold: 1340,
 }
 
-const client_id =  process.env.COGNITO_CLIENT_ID || 'hola-acd3-a24de1ee1baf';
-console.log(client_id)
 
 export default function App() {
     const { pathname, hash, key } = useLocation();
