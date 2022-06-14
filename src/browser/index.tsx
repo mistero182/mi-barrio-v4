@@ -1,7 +1,6 @@
 // Load polyfills (once, on the top of our web app)
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import "./index.css";
 
 /**

@@ -4,18 +4,26 @@ import { Link } from 'react-router-dom'
 
 import mainIcon from '../../assets/icons/miBarrio.png';
 import gpsPin from '../../assets/icons/gpsPin.png';
+import user from '../../assets/icons/user.png';
 import './Home.css'
+
+import distritos from '../../data/distritos.json'
 
 export const Home = (() => {
     const loadedMainlogo = useProgressiveImage(mainIcon)
     const loadedGPS = useProgressiveImage(gpsPin)
     
     return (
-        <div>
+        <div className='Home'>
             <h1
                 className='mainTitle'
             >
-                MI SANTA CRUZ
+                {"MI SANTA CRUZ\n"}
+                <span
+                    className='subTitle'
+                >
+                    Emprendedora
+                </span>
             </h1>
 
             <div
@@ -23,68 +31,72 @@ export const Home = (() => {
             >
                 <img 
                     className='mainLogo'
-                    src={ loadedMainlogo }
+                    src={ mainIcon }
                 />
             </div>
 
             <div>
-                <Link className='currentDistritoContainer' to='/distrito'>
-                    <div className='currentDistrito'>
-                        <img className='currentImage' src={loadedGPS}/>
-                        <p> DISTRITO 1 </p>
+                <Link to={`/negocio/apotv`}>
+                    <div
+                        className='sponsoreditem'
+                    >
+                        <p> APO tv </p>
+                    </div>
+                </Link>
+                <Link to={`/negocio/revistamisantacruz`}>
+                    <div
+                        className='sponsoreditem'
+                    >
+                        <p> Revista Mi Santa Cruz </p>
+                    </div>
+                </Link>
+                <Link to={`/negocio/josedazabienesraices`}>
+                    <div
+                        className='sponsoreditem'
+                    >
+                        <p> Jose Daza Bienes Raices </p>
                     </div>
                 </Link>
             </div>
 
-            <div
-                className='itemsList'
-            >
-                <div className='itemContainer'>
-                    <Link to='/distrito'>
-                        <div className='item'>
-                            <p> Distrio 1 </p>
-                        </div>
-                    </Link>
+            <Link className='currentDistritoContainer' to='/distrito/1'>
+                <div className='currentDistrito'>
+                    <img className='currentImage' src={loadedGPS}/>
+                    <p> DISTRITO 1 </p>
                 </div>
-                <div className='itemContainer'>
-                    <div className='item'>
-                        <p> Distrio 2 </p>
-                    </div>
-                </div>
-                <div className='itemContainer'>
-                    <div className='item'>
-                        <p> Distrio 3 </p>
-                    </div>
-                </div>
-                <div className='itemContainer'>
-                    <div className='item'>
-                        <p> Distrio 4 </p>
-                    </div>
-                </div>
-                <div className='itemContainer'>
-                    <div className='item'>
-                        <p> Distrio 5 </p>
-                    </div>
-                </div>
-                <div className='itemContainer'>
-                    <div className='item'>
-                        <p> Distrio 6 </p>
-                    </div>
-                </div>
-                <div className='itemContainer'>
-                    <div className='item'>
-                        <p> Distrio 7 </p>
-                    </div>
-                </div>
-                <div className='itemContainer'>
-                    <div className='item'>
-                        <p> Distrio 8 </p>
-                    </div>
-                </div>
+            </Link>
 
+            <div
+                className='itemsContainer'
+            >
+                <div
+                    className='itemsList'
+                >
+                    { distritos.map((item, idx) => (
+                        <div
+                            className='itemContainer'
+                            key={`item${idx}`}
+                        >
+                            <Link to={`/distrito/${item.ndis}`}>
+                                <div className='item'>
+                                    <p> Distrio {item.ndis} </p>
+                                </div>
+                            </Link>
+                        </div>
+                    )) }   
+                </div>
             </div>
 
-
+            <a href='https://auth.apo.ocuba.net/login?client_id=4bp2br1v07s621boov1ss24smo&response_type=code&redirect_uri=https%3A%2F%2Fapo.ocuba.net'>
+                <div
+                    className='userButton'
+                >
+                    <img
+                        src={user}
+                        className='userIcon'
+                    />
+                </div>
+            </a>
         </div>
     );
 });

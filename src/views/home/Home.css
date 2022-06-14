@@ -1,53 +1,46 @@
-
+.Home {
+    background-image: linear-gradient(to bottom, rgba(78, 118, 78, 1) 0%, rgba(116, 160, 89) 30%, rgba(255,102,0,0) 100%);
+}
 
 .mainTitle {
     font-family: 'trade-gothic';
     font-weight: 1000;
-    margin-top: 100px;
-    color: #2F243A;
+    color: #ffffff;
+    margin: 0px;
+    padding-top: 35px;
+    line-height: 25px;
+    white-space: pre;
+}
+.subTitle {
+    font-family: 'montserrat-italic';
+    font-size: 20px;
+    font-weight: 300;
 }
 
 .mainLogoContainer {
-    margin-top: 100px;
+    margin-top: 30px;
+    margin-bottom: 20px;
 }
-
 .mainLogo {
     width: 150px;
 }
 
-.itemsList {
-    display: flex;
-    flex-flow: row wrap;
-    margin: 10px 30px 0px 30px;
+a {
+    text-decoration: inherit;
+    color: inherit;
 }
-
-.itemContainer {
+.sponsoreditem{
     font-family: 'montserrat-regular';
-    font-weight: 700;
-    width: 50%;
-    cursor: point;
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.item {
-    /* background-color: rgba(255,230,213,0.3); */
-    /* background-color: rgba(255, 85, 85, 0.8); */
-    /* background-color: rgba(47, 36, 58, 0.7); */
-    border: 2px solid #2F243A;
-    width: 150px;
-    height: 50px;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 12px;
+    border: 1px solid #2F243A;
     border-radius: 3px;
-    color: #2F243A;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 300px;
+    margin: auto;
+    margin-top: 5px;
 }
 
-.current {
-    background-color: rgba(255, 85, 85, 0.8);
-}
 
 .currentDistritoContainer{
     display: flex;
@@ -63,15 +56,74 @@
     font-family: 'montserrat-regular';
     font-weight: 700;
     font-size: 17px;
-    width: 75%;
+    width: 300px;
     color: white;
     border-radius: 3px;
     border: 2px solid #ffffff;
-    margin-top: 50px;
+    margin-top: 25px;
 }
 
 .currentImage {
     height: 25px;
     margin-right: 20px;
+    animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
 }
 
+.itemsContainer {
+    max-height: 140px;
+    overflow: scroll;
+    margin-top: 15px;
+}
+
+.itemsList {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    width: 300px;
+    margin: auto;
+}
+
+.itemContainer {
+    font-family: 'montserrat-regular';
+    font-weight: 700;
+    width: 45%;
+    cursor: point;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.itemContainer a {
+    width: 100%;
+}
+
+.item {
+    border: 2px solid #2F243A;
+    width: 100%;
+    min-width: 100%;
+    height: 50px;
+    border-radius: 3px;
+    color: #2F243A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item > p {
+    width: 100%;
+}
+
+.current {
+    background-color: rgba(255, 85, 85, 0.8);
+}
+
+.userButton {
+    position: absolute;
+    top: 35px;
+    right: 20px;
+}
+
+.userIcon{
+    height: 25px;
+}

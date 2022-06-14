@@ -1,0 +1,20 @@
+.headerTitle {
+    font-family: 'montserrat-regular';
+    font-weight: 800;
+    font-size: 22px;
+    width: 80%;
+}
+
+.negocioTitle {
+    font-family: 'sen-regular';
+    font-weight: 1000;
+    white-space: pre-line;
+}
+
+.mainLogoContainer-negocio {
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+.mainLogo-negocio {
+    width: 350px;
+}

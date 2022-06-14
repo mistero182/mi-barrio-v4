@@ -12,3 +12,8 @@
     font-family: 'sen-regular';
     src: url('../../assets/fonts/Sen-Regular.ttf');
 }
+
+@font-face {
+    font-family: 'montserrat-italic';
+    src: url('../../assets/fonts/Montserrat-Italic.ttf');
+}

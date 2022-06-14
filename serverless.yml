@@ -42,6 +42,9 @@ plugins:
   - serverless-plugin-scripts
   - serverless-offline
   - serverless-s3-deploy
+  - serverless-dotenv-plugin
+  # - serverless-domain-manager
+  # - serverless-certificate-creator
 
 functions:
   serve:
@@ -55,6 +58,13 @@ functions:
       - http:
           path: /{any+}
           method: any
+          cors: true
+  auth:
+    handler: handler.auth
+    events:
+      - http:
+          path: /auth
+          method: post
           cors: true
 
 custom:
@@ -73,6 +83,18 @@ custom:
           - Ref: AWS::Region
           - .amazonaws.com/
           - Ref: DistBucket
+  # customDomain:
+  #   domainName: api.ocuba.net
+  #   basePath: ""
+  #   certificateName: "api.ocuba.net"
+  #   hostedZoneId: Z06659323K0IGDC7GJ08O
+  #   createRoute53Record: true
+  # customCertificate:
+  #   certificateName: 'api.ocuba.net'
+  #   idempotencyToken: 'apiocubanet'
+  #   hostedZoneIds: 'Z06659323K0IGDC7GJ08O'
+  #   enabled: true
+  #   rewriteRecords: false
 
   scripts:
     hooks:
@@ -100,8 +122,10 @@ custom:
   serverless-offline:
     useChildProcesses: true
     noPrependStageInUrl: true
-    httpPort: 3000
-    lambdaPort: 3002
+    httpPort: 3004
+    lambdaPort: 3006
+    stageVariables:
+      foo: "bar"
 
 resources:
   Resources:
@@ -111,6 +135,16 @@ resources:
       Properties:
         # Enable gzip compression
         MinimumCompressionSize: 1000
+    AuthFailureGatewayResponse:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: UNAUTHORIZED
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'
+        StatusCode: '401'
 
     # S3 Bucket for the distribution bundles
     DistBucket:

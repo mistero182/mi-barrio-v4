@@ -16,9 +16,11 @@
         "@emotion/styled": "^11.8.1",
         "@pmmmwh/react-refresh-webpack-plugin": "^0.5.0-beta",
         "@types/uuid": "^8.3.4",
+        "axios": "^0.27.2",
         "core-js": "^3.9.1",
         "formik": "^2.2.9",
         "mongodb": "3.2.3",
+        "qs": "^6.10.5",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-icons": "^4.3.1",
@@ -27,11 +29,13 @@
         "react-player": "2.10.1",
         "react-router": "^6.3.0",
         "react-router-dom": "^6.3.0",
+        "react-scripts": "^5.0.1",
         "react-scrollspy": "^3.4.3",
         "react-scrollspy-highlight": "^1.0.1",
         "regenerator-runtime": "^0.13.7",
         "shortid": "2.2.16",
-        "source-map-support": "^0.5.19"
+        "source-map-support": "^0.5.19",
+        "universal-cookie": "^4.0.4"
     },
     "devDependencies": {
         "@babel/core": "^7.12.10",
@@ -67,6 +71,8 @@
         "copy-webpack-plugin": "^9.0.0",
         "cross-env": "^7.0.3",
         "css-loader": "^6.4.0",
+        "dotenv": "^16.0.1",
+        "dotenv-webpack": "^7.1.0",
         "file-loader": "^6.2.0",
         "identity-obj-proxy": "^3.0.0",
         "jest": "^27.0.4",
@@ -74,10 +80,12 @@
         "mini-css-extract-plugin": "^2.4.2",
         "null-loader": "^4.0.1",
         "prettier": "^2.2.1",
+        "react-error-overlay": "^6.0.9",
         "react-refresh": "^0.10.0",
         "serverless": "^2.22.0",
         "serverless-certificate-creator": "^1.6.0",
         "serverless-domain-manager": "^6.0.2",
+        "serverless-dotenv-plugin": "^4.0.1",
         "serverless-offline": "^8.2.0",
         "serverless-plugin-scripts": "^1.0.2",
         "serverless-s3-deploy": "^0.10.0",
@@ -101,5 +109,10 @@
         "bracketSpacing": true,
         "bracketSameLine": false,
         "arrowParens": "always"
+    },
+    "resolutions": {
+        "//": "See https://github.com/facebook/create-react-app/issues/11773",
+        "react-error-overlay": "6.0.9"
     }
+      
 }

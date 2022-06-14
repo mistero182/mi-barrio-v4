@@ -1,6 +1,7 @@
 import React, {  } from 'react';
 import { Link } from 'react-router-dom';
 import backArrow from '../../assets/icons/backArrow.png'
+import { useParams, useSearchParams} from "react-router-dom";
 
 import './Distrito.css'
 
@@ -20,7 +21,9 @@ const dataNegocios = [
 ]
 
 export const Distrito = (() => {
-    
+    const [searchParams, setSearchParams] = useSearchParams();
+    const { ndis } = useParams();
+
     return (
         <div className='mainDistrito'>
             <div className='header'>
@@ -31,7 +34,7 @@ export const Distrito = (() => {
                     />
                 </Link>
                 <p className='headerTitle'>
-                    Distrito 1
+                    Distrito {ndis}
                 </p>
             </div>
 
