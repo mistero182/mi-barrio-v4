@@ -1,0 +1,276 @@
+  CognitoUserPoolMibarrioapp:
+    Type: "AWS::Cognito::UserPool"
+    Properties:
+      UserPoolName: "Mibarrioapp"
+      Policies: 
+        PasswordPolicy: 
+          MinimumLength: 8
+          RequireUppercase: true
+          RequireLowercase: true
+          RequireNumbers: true
+          RequireSymbols: true
+          TemporaryPasswordValidityDays: 7
+      # LambdaConfig: {}
+      Schema: 
+        - Name: "sub"
+          AttributeDataType: "String"
+          DeveloperOnlyAttribute: false
+          Mutable: false
+          Required: true
+          StringAttributeConstraints: 
+            MinLength: "1"
+            MaxLength: "2048"
+        - Name: "name"
+          AttributeDataType: "String"
+          DeveloperOnlyAttribute: false
+          Mutable: true
+          Required: false
+          StringAttributeConstraints: 
+            MinLength: "0"
+            MaxLength: "2048"
+        - Name: "given_name"
+          AttributeDataType: "String"
+          DeveloperOnlyAttribute: false
+          Mutable: true
+          Required: false
+          StringAttributeConstraints: 
+            MinLength: "0"
+            MaxLength: "2048"
+        - Name: "family_name"
+          AttributeDataType: "String"
+          DeveloperOnlyAttribute: false
+          Mutable: true
+          Required: false
+          StringAttributeConstraints: 
+            MinLength: "0"
+            MaxLength: "2048"
+        - Name: "middle_name"
+          AttributeDataType: "String"
+          DeveloperOnlyAttribute: false
+          Mutable: true
+          Required: false
+          StringAttributeConstraints: 
+            MinLength: "0"
+            MaxLength: "2048"
+        - Name: "nickname"
+          AttributeDataType: "String"
+          DeveloperOnlyAttribute: false
+          Mutable: true
+          Required: false
+          StringAttributeConstraints: 
+            MinLength: "0"
+            MaxLength: "2048"
+        - Name: "preferred_username"
+          AttributeDataType: "String"
+          DeveloperOnlyAttribute: false
+          Mutable: true
+          Required: false
+          StringAttributeConstraints: 
+            MinLength: "0"
+            MaxLength: "2048"
+        - Name: "profile"
+          AttributeDataType: "String"
+          DeveloperOnlyAttribute: false
+          Mutable: true
+          Required: false
+          StringAttributeConstraints: 
+            MinLength: "0"
+            MaxLength: "2048"
+        - Name: "picture"
+          AttributeDataType: "String"
+          DeveloperOnlyAttribute: false
+          Mutable: true
+          Required: false
+          StringAttributeConstraints: 
+            MinLength: "0"
+            MaxLength: "2048"
+        - Name: "website"
+          AttributeDataType: "String"
+          DeveloperOnlyAttribute: false
+          Mutable: true
+          Required: false
+          StringAttributeConstraints: 
+            MinLength: "0"
+            MaxLength: "2048"
+        - Name: "email"
+          AttributeDataType: "String"
+          DeveloperOnlyAttribute: false
+          Mutable: true
+          Required: true
+          StringAttributeConstraints: 
+            MinLength: "0"
+            MaxLength: "2048"
+        - Name: "email_verified"
+          AttributeDataType: "Boolean"
+          DeveloperOnlyAttribute: false
+          Mutable: true
+          Required: false
+        - Name: "gender"
+          AttributeDataType: "String"
+          DeveloperOnlyAttribute: false
+          Mutable: true
+          Required: false
+          StringAttributeConstraints: 
+            MinLength: "0"
+            MaxLength: "2048"
+        - Name: "birthdate"
+          AttributeDataType: "String"
+          DeveloperOnlyAttribute: false
+          Mutable: true
+          Required: false
+          StringAttributeConstraints: 
+            MinLength: "10"
+            MaxLength: "10"
+        - Name: "zoneinfo"
+          AttributeDataType: "String"
+          DeveloperOnlyAttribute: false
+          Mutable: true
+          Required: false
+          StringAttributeConstraints: 
+            MinLength: "0"
+            MaxLength: "2048"
+        - Name: "locale"
+          AttributeDataType: "String"
+          DeveloperOnlyAttribute: false
+          Mutable: true
+          Required: false
+          StringAttributeConstraints: 
+            MinLength: "0"
+            MaxLength: "2048"
+        - Name: "phone_number"
+          AttributeDataType: "String"
+          DeveloperOnlyAttribute: false
+          Mutable: true
+          Required: false
+          StringAttributeConstraints: 
+            MinLength: "0"
+            MaxLength: "2048"
+        - Name: "phonenumber_verified"
+          AttributeDataType: "Boolean"
+          DeveloperOnlyAttribute: false
+          Mutable: true
+          Required: false
+        - Name: "address"
+          AttributeDataType: "String"
+          DeveloperOnlyAttribute: false
+          Mutable: true
+          Required: false
+          StringAttributeConstraints: 
+            MinLength: "0"
+            MaxLength: "2048"
+        - Name: "updated_at"
+          AttributeDataType: "Number"
+          DeveloperOnlyAttribute: false
+          Mutable: true
+          Required: false
+          NumberAttributeConstraints: 
+            MinValue: "0"
+        - Name: "role"
+          AttributeDataType: "String"
+          DeveloperOnlyAttribute: false
+          Mutable: true
+          Required: false
+          StringAttributeConstraints: 
+            MinLength: "3"
+            MaxLength: "20"
+      AutoVerifiedAttributes: 
+        - "email"
+      AliasAttributes: 
+        - "email"
+        - "preferred_username"
+      MfaConfiguration: "OFF"
+      EmailConfiguration: 
+        EmailSendingAccount: "COGNITO_DEFAULT"
+      AdminCreateUserConfig: 
+        AllowAdminCreateUserOnly: false
+      UserPoolTags: {}
+      AccountRecoverySetting: 
+        RecoveryMechanisms: 
+        - Priority: 1
+          Name: "verified_email"
+      UsernameConfiguration: 
+        CaseSensitive: false
+      VerificationMessageTemplate: 
+        DefaultEmailOption: "CONFIRM_WITH_CODE"
+
+  CognitoUserPoolClient:
+    Type: "AWS::Cognito::UserPoolClient"
+    Properties:
+      # UserPoolId: !Ref CognitoUserPool
+      # UserPoolId: ${self:resources.Resources.CognitoUserPool}
+      UserPoolId:
+        Ref: 'CognitoUserPoolMibarrioapp'
+      ClientName: "mibarrioapp-client"
+      RefreshTokenValidity: 30
+      ReadAttributes: 
+        - "address"
+        - "birthdate"
+        - "custom:role"
+        - "email"
+        - "email_verified"
+        - "family_name"
+        - "gender"
+        - "given_name"
+        - "locale"
+        - "middle_name"
+        - "name"
+        - "nickname"
+        - "phone_number"
+        - "custom:phonenumber_verified"
+        - "picture"
+        - "preferred_username"
+        - "profile"
+        - "updated_at"
+        - "website"
+        - "zoneinfo"
+      WriteAttributes: 
+        - "address"
+        - "birthdate"
+        - "custom:role"
+        - "email"
+        - "family_name"
+        - "gender"
+        - "given_name"
+        - "locale"
+        - "middle_name"
+        - "name"
+        - "nickname"
+        - "phone_number"
+        - "picture"
+        - "preferred_username"
+        - "profile"
+        - "updated_at"
+        - "website"
+        - "zoneinfo"
+      ExplicitAuthFlows: 
+        - "ALLOW_CUSTOM_AUTH"
+        - "ALLOW_REFRESH_TOKEN_AUTH"
+        - "ALLOW_USER_SRP_AUTH"
+      PreventUserExistenceErrors: "ENABLED"
+      SupportedIdentityProviders: 
+        - "COGNITO"
+      CallbackURLs: 
+        - "https://apo.ocuba.net"
+      LogoutURLs: 
+        - "https://apo.ocuba.net"
+      AllowedOAuthFlows: 
+        - "code"
+      AllowedOAuthScopes: 
+        - "email"
+        - "openid"
+        - "phone"
+      AllowedOAuthFlowsUserPoolClient: true
+      IdTokenValidity: 480
+      AccessTokenValidity: 480
+      TokenValidityUnits:
+        AccessToken: "minutes"
+        IdToken: "minutes"
+        RefreshToken: "days"
+
+# CognitoUserPoolDomain:
+#   Type: "AWS::Cognito::UserPoolDomain"
+#   Properties:
+#     Domain: "auth.apo.ocuba.net"
+#     CustomDomainConfig: 
+#       CertificateArn: !Sub "arn:aws:acm:us-east-1:${AWS::AccountId}:certificate/a44ec056-5091-4413-a6c8-1b0275ed411a"
+#     UserPoolId: !Ref CognitoUserPool

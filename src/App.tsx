@@ -63,36 +63,116 @@ export default function App() {
 
         if (param) {
             // 👇️ delete each query param
-            cookies.set('token', param);
+            cookies.set('vrc_tk', param);
             console.log(param)
             // searchParams.delete('code');
     
             // 👇️ update state after
             setSearchParams(searchParams);
 
-            
-
-            // const payload = {
-            //     grant_type: authorization_code,
-            //     client_id: 
-            // }
-
-            // const options = {
-            //     method: 'POST',
-            //     headers: { 'content-type': 'application/x-www-form-urlencoded' },
-            //     data: qs.stringify(data),
-            //     'https://auth.apo.ocuba.net/oauth2/token',
-            // };
-
-            // axios.post(options)
-            // .then(function (response) {
-            // console.log(response);
-            // })
-            // .catch(function (error) {
-            // console.log(error);
-            // });
         }
     }, [searchParams])
+
+    function showCookie() {
+        console.log(cookies.get('vrc_tk'));
+    }
+
+    function getToken() {
+        const code = cookies.get('vrc_tk');
+
+        const payload = {
+            grant_type: 'authorization_code',
+            client_id: '4bp2br1v07s621boov1ss24smo',
+            code: code,
+            redirect_uri: 'https://apo.ocuba.net',
+        }
+
+        const options = {
+            method: 'POST',
+            headers: { 'content-type': 'application/x-www-form-urlencoded' },
+            data: qs.stringify(payload),
+            url: 'https://auth.apo.ocuba.net/oauth2/token'
+        };
+
+        axios(options)
+        .then(function (response) {
+            console.log(response);
+            const { id_token, expires_in, access_token, refresh_token } = response.data;
+
+            cookies.set('vrc_idtk', id_token);
+            cookies.set('vrc_acsstk', access_token);
+            cookies.set('vrc_rftk', refresh_token);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+
+    function logOut() {
+        const rftk = cookies.get('vrc_rftk');
+
+        const payload = {
+            token: rftk,
+            client_id: '4bp2br1v07s621boov1ss24smo'
+        };
+
+        const options = {
+            method: 'POST',
+            headers: { 
+                'accept': 'application/json',
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+            data: qs.stringify(payload),
+            url: 'https://auth.apo.ocuba.net'
+        };
+
+        axios(options)
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+
+    function userInfo() {
+        const bearer = cookies.get('vrc_acsstk');
+
+        const options = {
+            method: 'GET',
+            headers: { 'Authorization': `Bearer ${bearer}` },
+            url: 'https://auth.apo.ocuba.net/oauth2/userInfo'
+        };
+
+        axios(options)
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+
+    function testAuth() {
+        const bearer = cookies.get('vrc_acsstk');
+
+        const options = {
+            method: 'GET',
+            headers: { 
+                'Authorization': bearer,
+            },
+            // url: 'https://apo.ocuba.net/testauth'
+            url: 'http://localhost:3004/testauth'
+        };
+
+        axios(options)
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
 
   return (
     <div
@@ -103,6 +183,38 @@ export default function App() {
             <Route path="/distrito/:ndis" element={<Distrito />} />
             <Route path="/negocio/:id" element={<Negocio />} />
         </Routes>
+
+        <div>
+            <button
+                onClick={()=>(showCookie())}
+            >
+                Log Cookies
+            </button>
+            <button
+                onClick={()=>(getToken())}
+            >
+                Token
+            </button>
+            <button
+                onClick={()=>(logOut())}
+            >
+                <a href='https://auth.apo.ocuba.net/logout?response_type=code&client_id=4bp2br1v07s621boov1ss24smo&redirect_uri=https://apo.ocuba.net'>
+                    <div>
+                        log Out
+                    </div>
+                </a>
+            </button>
+            <button
+                onClick={()=>(userInfo())}
+            >
+                User Info
+            </button>
+            <button
+                onClick={()=>(testAuth())}
+            >
+                Test Auth
+            </button>
+        </div>
     </div>
   );
 }

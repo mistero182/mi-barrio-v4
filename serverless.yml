@@ -7,6 +7,9 @@ variablesResolutionMode: 20210326
 disabledDeprecations:
   - CLI_OPTIONS_SCHEMA # some Serverless plugins haven't been updated yet and generate warnings
 
+package:
+  individually: true
+
 provider:
   name: aws
   runtime: nodejs12.x
@@ -24,6 +27,10 @@ provider:
     SERVERLESS_PROJECT: ${self:service}
     SERVERLESS_REGION: ${self:provider.region}
     SERVERLESS_STAGE: ${self:provider.stage}
+    
+    SERVERLESS_USERPOOL_ID: { Ref: CognitoUserPoolMibarrioapp }
+    SERVERLESS_USERPOOL_NAME: ${self:resources.Resources.CognitoUserPoolMibarrioapp.Properties.UserPoolName}
+    SERVERLESS_USERPOOLCLIENT_ID: { Ref: CognitoUserPoolClient }
 
     APP_DIST_URL: ${self:custom.distBucketUrl.${self:provider.region}, self:custom.distBucketUrl.default}
     APP_PUBLIC_URL: ${self:custom.distBucketUrl.${self:provider.region}, self:custom.distBucketUrl.default}
@@ -66,6 +73,21 @@ functions:
           path: /auth
           method: post
           cors: true
+  testauth:
+    handler: ./src/server/testauth.test
+    events:
+      - http:
+          path: /testauth
+          method: get
+          cors: true
+
+  #Cognito Lambdas Events          
+  preSignUp:
+    handler: ./src/server/cognito/presignup.Role
+    events:
+      - cognitoUserPool:
+          pool: Mibarrioapp
+          trigger: PreSignUp
 
 custom:
   distBucketUrl:
@@ -104,6 +126,8 @@ custom:
 
   webpack:
     webpackConfig: "webpack.server.config.js"
+    includeFunctions:
+      - handler.serve
 
   assets:
     # Automatically copy distribution folder to S3 stopped working; do it manually (see `scripts.hooks.deploy:finalize`)
@@ -146,6 +170,11 @@ resources:
           Ref: 'ApiGatewayRestApi'
         StatusCode: '401'
 
+    CognitoUserPoolMibarrioapp: ${file(serverless/cognito.yml):CognitoUserPoolMibarrioapp}
+    CognitoUserPoolClient: ${file(serverless/cognito.yml):CognitoUserPoolClient}
+
+    UsersDB: ${file(serverless/dynamodb.yml):UsersDB}
+
     # S3 Bucket for the distribution bundles
     DistBucket:
       Type: AWS::S3::Bucket
@@ -165,6 +194,7 @@ resources:
                       - .execute-api.
                       - Ref: AWS::Region
                       - .amazonaws.com
+                - "https://apo.ocuba.net"
               MaxAge: 3000
 
   Outputs:
@@ -176,3 +206,9 @@ resources:
       Description: Distribution S3 Bucket
       Value:
         Ref: DistBucket
+    UserPoolId:
+      Value:
+        Ref: CognitoUserPoolMibarrioapp
+    UserPoolClientId:
+      Value:
+        Ref: CognitoUserPoolClient
