@@ -87,7 +87,7 @@ export const Home = (() => {
                 </div>
             </div>
 
-            <a href='https://auth.apo.ocuba.net/login?client_id=1ov498sjramupp9v2vplbsjrr6&response_type=code&redirect_uri=https%3A%2F%2Fapo.ocuba.net'>
+            <a href='https://auth.apo.ocuba.net/login?client_id=3gb76npoh1pgv2o269524t7jlm&response_type=code&scope=email+openid&redirect_uri=https%3A%2F%2Fapo.ocuba.net'>
                 <div
                     className='userButton'
                 >

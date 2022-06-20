@@ -3,6 +3,10 @@ import {Context, APIGatewayEvent, APIGatewayProxyResultV2} from "aws-lambda";
 
 export const test = async (event: APIGatewayEvent, _context: Context) => {
     
+
+    console.log('email context');
+    console.log(JSON.stringify(event, null, 4));
+    console.log(JSON.stringify(_context, null, 4))
     interface payload {
         message: string,
     }

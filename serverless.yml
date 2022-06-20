@@ -82,12 +82,12 @@ functions:
           cors: true
 
   #Cognito Lambdas Events          
-  preSignUp:
-    handler: ./src/server/cognito/presignup.Role
-    events:
-      - cognitoUserPool:
-          pool: Mibarrioapp
-          trigger: PreSignUp
+  # preSignUp:
+  #   handler: ./src/server/cognito/presignup.Role
+  #   events:
+  #     - cognitoUserPool:
+  #         pool: Mibarrioapp
+  #         trigger: PreSignUp
 
 custom:
   distBucketUrl:

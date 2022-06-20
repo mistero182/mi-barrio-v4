@@ -82,7 +82,7 @@ export default function App() {
 
         const payload = {
             grant_type: 'authorization_code',
-            client_id: '4bp2br1v07s621boov1ss24smo',
+            client_id: '3gb76npoh1pgv2o269524t7jlm',
             code: code,
             redirect_uri: 'https://apo.ocuba.net',
         }
@@ -113,7 +113,7 @@ export default function App() {
 
         const payload = {
             token: rftk,
-            client_id: '4bp2br1v07s621boov1ss24smo'
+            client_id: '3gb76npoh1pgv2o269524t7jlm'
         };
 
         const options = {
@@ -154,15 +154,13 @@ export default function App() {
     }
 
     function testAuth() {
-        const bearer = cookies.get('vrc_acsstk');
+        const bearer = cookies.get('vrc_idtk');
 
         const options = {
             method: 'GET',
-            headers: { 
-                'Authorization': bearer,
-            },
-            // url: 'https://apo.ocuba.net/testauth'
-            url: 'http://localhost:3004/testauth'
+            headers: { 'Authorization': `Bearer ${bearer}` },
+            url: 'https://apo.ocuba.net/testauth'
+            // url: 'http://localhost:3004/testauth'
         };
 
         axios(options)
@@ -198,7 +196,7 @@ export default function App() {
             <button
                 onClick={()=>(logOut())}
             >
-                <a href='https://auth.apo.ocuba.net/logout?response_type=code&client_id=4bp2br1v07s621boov1ss24smo&redirect_uri=https://apo.ocuba.net'>
+                <a href='https://auth.apo.ocuba.net/logout?response_type=code&client_id=3gb76npoh1pgv2o269524t7jlm&redirect_uri=https://apo.ocuba.net'>
                     <div>
                         log Out
                     </div>
