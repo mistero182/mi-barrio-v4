@@ -1,7 +1,7 @@
   CognitoUserPoolMibarrioapp:
     Type: "AWS::Cognito::UserPool"
     Properties:
-      UserPoolName: "Mibarrioapp"
+      UserPoolName: "mibarrio-users"
       Policies: 
         PasswordPolicy: 
           MinimumLength: 8
@@ -17,7 +17,7 @@
           DeveloperOnlyAttribute: false
           Mutable: false
           Required: true
-          StringAttributeConstraints: 
+          StringAttributeConstraints:
             MinLength: "1"
             MaxLength: "2048"
         - Name: "name"
@@ -200,7 +200,7 @@
       # UserPoolId: ${self:resources.Resources.CognitoUserPool}
       UserPoolId:
         Ref: 'CognitoUserPoolMibarrioapp'
-      ClientName: "mibarrioapp-client"
+      ClientName: "mibarrio-users-client"
       RefreshTokenValidity: 30
       ReadAttributes: 
         - "address"

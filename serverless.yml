@@ -1,6 +1,4 @@
-org: ocuba
-app: mi-barrio-v4
-service: mi-barrio-v4
+service: mi-barrio
 frameworkVersion: "2"
 useDotenv: true
 variablesResolutionMode: 20210326
@@ -19,6 +17,7 @@ provider:
   timeout: 6
   logRetentionInDays: 7
   lambdaHashingVersion: 20201221 # for upcoming Serverless v3
+  role: DefaultRole
 
   apiGateway:
     shouldStartNameWithService: true # for upcoming Serverless v3
@@ -27,7 +26,8 @@ provider:
     SERVERLESS_PROJECT: ${self:service}
     SERVERLESS_REGION: ${self:provider.region}
     SERVERLESS_STAGE: ${self:provider.stage}
-    
+    SLS_DEBUG: "*"
+
     SERVERLESS_USERPOOL_ID: { Ref: CognitoUserPoolMibarrioapp }
     SERVERLESS_USERPOOL_NAME: ${self:resources.Resources.CognitoUserPoolMibarrioapp.Properties.UserPoolName}
     SERVERLESS_USERPOOLCLIENT_ID: { Ref: CognitoUserPoolClient }
@@ -66,28 +66,70 @@ functions:
           path: /{any+}
           method: any
           cors: true
-  auth:
-    handler: handler.auth
-    events:
-      - http:
-          path: /auth
-          method: post
-          cors: true
-  testauth:
-    handler: ./src/server/testauth.test
-    events:
-      - http:
-          path: /testauth
-          method: get
-          cors: true
 
-  #Cognito Lambdas Events          
-  # preSignUp:
-  #   handler: ./src/server/cognito/presignup.Role
-  #   events:
-  #     - cognitoUserPool:
-  #         pool: Mibarrioapp
-  #         trigger: PreSignUp
+  # Custom Authorizer Function
+  authorizerFunc:
+    handler: ./src/server/authorizers/custom-authorizer.handler
+
+  # Function to copy news signup to Dynamo UserDB
+  cognitoLambdaTrigger:
+    handler: ./src/server/userAuth/cognitoTrigger.handler
+    role: CognitoTriggerLambdaRole
+
+  # Auth Function
+  signIn:
+    handler: ./src/server/userAuth/login.handler
+    role: AuthRole
+    events:
+      - http:
+          path: /auth/login
+          method: post
+          # cors: true
+  userInfo:
+    handler: ./src/server/userAuth/userInfo.handler
+    role: AuthRole
+    events:
+      - http:
+          path: /auth/myaccount
+          method: get
+          authorizer:
+            name: authorizerFunc
+            identitySource: method.request.header.cookie
+            type: request
+            resultTtlInSeconds: 0
+  signUp:
+    handler: ./src/server/userAuth/signUp.handler
+    role: AuthRole
+    events:
+      - http:
+          path: /auth/signup
+          method: post
+  logOut:
+    handler: ./src/server/userAuth/revoke.handler
+    role: AuthRole
+    events:
+      - http:
+          path: /auth/logout
+          method: get
+          authorizer:
+            name: authorizerFunc
+            identitySource: method.request.header.cookie
+            type: request
+            resultTtlInSeconds: 0
+
+  # User OPS
+  updateProfile:
+    handler: ./src/server/userOps/updateProfile.handler
+    role: AuthRole
+    events:
+      - http:
+          path: /myaccount
+          method: put
+          authorizer:
+            name: authorizerFunc
+            identitySource: method.request.header.cookie
+            type: request
+            resultTtlInSeconds: 0
 
 custom:
   distBucketUrl:
@@ -105,6 +147,7 @@ custom:
           - Ref: AWS::Region
           - .amazonaws.com/
           - Ref: DistBucket
+
   # customDomain:
   #   domainName: api.ocuba.net
   #   basePath: ""
@@ -126,8 +169,6 @@ custom:
 
   webpack:
     webpackConfig: "webpack.server.config.js"
-    includeFunctions:
-      - handler.serve
 
   assets:
     # Automatically copy distribution folder to S3 stopped working; do it manually (see `scripts.hooks.deploy:finalize`)
@@ -170,10 +211,19 @@ resources:
           Ref: 'ApiGatewayRestApi'
         StatusCode: '401'
 
+
     CognitoUserPoolMibarrioapp: ${file(serverless/cognito.yml):CognitoUserPoolMibarrioapp}
     CognitoUserPoolClient: ${file(serverless/cognito.yml):CognitoUserPoolClient}
 
     UsersDB: ${file(serverless/dynamodb.yml):UsersDB}
+    NegociosDB: ${file(serverless/dynamodb.yml):NegociosDB}
+    SessionsDB: ${file(serverless/dynamodb.yml):SessionsDB}
+
+    DefaultRole: ${file(serverless/roles.yml):DefaultRole}
+    NegociosRole: ${file(serverless/roles.yml):NegociosRole}
+    AuthRole: ${file(serverless/roles.yml):AuthRole}
+    CognitoTriggerLambdaRole: ${file(serverless/roles.yml):CognitoTriggerLambdaRole}
+
 
     # S3 Bucket for the distribution bundles
     DistBucket:

@@ -11,3 +11,33 @@
       ProvisionedThroughput:
         ReadCapacityUnits: 1
         WriteCapacityUnits: 1
+
+  NegociosDB:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: mibarrio-negocios
+      AttributeDefinitions:
+        - AttributeName: email
+          AttributeType: S
+      KeySchema:
+        - AttributeName: email
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+
+  SessionsDB:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: mibarrio-sessions
+      AttributeDefinitions:
+        - AttributeName: username
+          AttributeType: S
+        - AttributeName: jti
+          AttributeType: S
+      KeySchema:
+        - AttributeName: username
+          KeyType: HASH
+        - AttributeName: jti
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST

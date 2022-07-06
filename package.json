@@ -19,6 +19,8 @@
         "axios": "^0.27.2",
         "core-js": "^3.9.1",
         "formik": "^2.2.9",
+        "jsonwebtoken": "^8.5.1",
+        "jwk-to-pem": "^2.0.5",
         "mongodb": "3.2.3",
         "qs": "^6.10.5",
         "react": "^17.0.2",
@@ -35,7 +37,8 @@
         "regenerator-runtime": "^0.13.7",
         "shortid": "2.2.16",
         "source-map-support": "^0.5.19",
-        "universal-cookie": "^4.0.4"
+        "universal-cookie": "^4.0.4",
+        "util": "^0.12.4"
     },
     "devDependencies": {
         "@babel/core": "^7.12.10",
@@ -114,5 +117,4 @@
         "//": "See https://github.com/facebook/create-react-app/issues/11773",
         "react-error-overlay": "6.0.9"
     }
-      
 }

@@ -29,6 +29,6 @@
      PUBLIC_URL: isLocal ? "http://localhost:8080" : String(process.env.APP_PUBLIC_URL),
    },
  };
- 
+
  export type Config = typeof config;
  export default config;

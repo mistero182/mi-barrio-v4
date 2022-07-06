@@ -1,8 +1,10 @@
-import React, { useEffect, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useState, useLayoutEffect, useContext } from 'react';
 import {Route, Routes, useLocation, useSearchParams} from "react-router-dom";
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import qs from 'qs';
+import useConfig from './hooks/useConfig'
+
 
 const cookies = new Cookies();
 
@@ -25,6 +27,8 @@ const globalConfig = {
 
 
 export default function App() {
+    const { app } = useConfig();
+
     const { pathname, hash, key } = useLocation();
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -54,9 +58,6 @@ export default function App() {
         else setIsSD(false)
 
     }, [bodyWidth, bodyTop])
-
-
-    
 
     useEffect(() => {
         const param = searchParams.get('code');

@@ -16,8 +16,15 @@ import App from "../App";
 
 import ViewportProvider from '../context/viewportContext';
 
-const config = (window as any).__CONFIG__ as Config;
-delete (window as any).__CONFIG__;
+declare global {
+  // interface Window { MyNamespace: any; }
+  interface Window { __CONFIG__: any; }
+}
+
+// window.MyNamespace = window.MyNamespace || {};
+
+const config = window.__CONFIG__ as Config;
+delete window.__CONFIG__;
 
 /** Components added here will _only_ be loaded in the web browser, never for server-side rendering */
 const render = () => {
